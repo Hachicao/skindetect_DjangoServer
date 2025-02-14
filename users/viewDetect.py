@@ -122,13 +122,13 @@ def showResult(request):
 def history(request):
     user = request.user
     if user is not None:
-        data_filter = DetectInfo.objects.filter(user_id=user.id)
+        data_filter = DetectInfo.objects.filter(user_id=user.id).order_by('-detect_date')
         for data in data_filter:
             if data.detect_score is not None:
                 data.detect_score = round(data.detect_score * 100)
 
         # Implement pagination logic
-        objects_per_page = 10
+        objects_per_page = 4
         paginator = Paginator(data_filter, objects_per_page)
         page_number = request.GET.get('page')
         page_objects = paginator.get_page(page_number)
@@ -285,22 +285,13 @@ def getimage(request):
                 name = name_arr[id]
                 print(score, id, name)
                 data = {}
-                if (score >= float(0.8) and (id <= 17 or id >= 19)):
-                    data = {
-                        'placement': str(name),
-                        'score': float(score),
-                        'date': date,
-                        'time': time,
-                        'id': str(id),
-                    }
-                else:
-                    data = {
-                        'placement': str(name),
-                        'score': float(score),
-                        'date': date,
-                        'time': time,
-                        'id': str(id),
-                    }
+                data = {
+                    'placement': str(name),
+                    'score': float(score),
+                    'date': date,
+                    'time': time,
+                    'id': str(id),
+                }
                 storeImageById(image_path, name, user_id, id, score)
                 return JsonResponse(data)
             else:

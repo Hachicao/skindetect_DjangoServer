@@ -31,7 +31,7 @@
                                         cy="60"
                                     />
                                     <circle
-                                        :class="{ 'text-green-600': percent < 50, 'text-red-600': percent >= 80, 'text-yellow-700': percent >= 50}"
+                                        :class="{ 'text-green-600': percent < 50, 'text-red-600': percent >= 80, 'text-yellow-700': percent >= 50 && percent < 80}"
                                         stroke-width="10"
                                         :stroke-dasharray="circumference"
                                         :stroke-dashoffset="circumference - percent / 100 * circumference"
@@ -43,9 +43,9 @@
                                         cy="60"
                                     />
                                 </svg>
-                                <span class="absolute text-2xl" :class="{ 'text-green-700': percent < 50, 'text-red-700': percent >= 80, 'text-yellow-700': percent >= 50  }" x-text="`${percent}%`"></span>
+                                <span class="absolute text-2xl" :class="{ 'text-green-700': percent < 50, 'text-red-700': percent >= 80, 'text-yellow-700': percent >= 50 && percent < 80  }" x-text="`${percent}%`"></span>
                             </div>
-                            <p class="ml-10 font-medium" :class="{ 'text-green-600': percent < 50, 'text-red-600': percent >= 80, 'text-yellow-700': percent >= 50 }">{{ detect_info.detect_result }}</p>
+                            <p class="ml-10 font-medium" :class="{ 'text-green-600': percent < 50, 'text-red-600': percent >= 80, 'text-yellow-700': percent >= 50 && percent < 80 }">{{ detect_info.detect_result }}</p>
                         </div>
                     </div>
                     
